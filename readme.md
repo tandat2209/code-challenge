@@ -1,10 +1,28 @@
-# 99Tech Code Challenge #1 #
+## Submitted Problems ##
 
-Note that if you fork this repository, your responses may be publicly linked to this repo.  
-Please submit your application along with the solutions attached or linked.   
+### Problem 1: Sum to N Function
+**Location:** `src/problem1/solution.js`
 
-It is important that you minimally attempt the problems, even if you do not arrive at a working solution.
+Provides 3 unique implementations of a function to calculate the summation to n:
+- **sum_to_n_a**: Mathematical formula approach using `n * (n + 1) / 2`
+- **sum_to_n_b**: Iterative approach using a for loop
+- **sum_to_n_c**: Recursive approach
 
-## Submission ##
-You can either provide a link to an online repository, attach the solution in your application, or whichever method you prefer.
-We're cool as long as we can view your solution without any pain.
+### Problem 2: Currency Swap Interface
+**Location:** `src/problem2/`
+
+A React + TypeScript + Vite application implementing a currency swap interface with:
+- Token selection with search functionality
+- Amount input with validation
+- Exchange rate display
+- Swap functionality with success modal
+- Responsive design using Tailwind CSS
+
+![Currency Swap Interface Demo](solution2.gif)
+
+
+### Problem 3: React Code Refactoring
+**Location:** `src/problem3/`
+Contains both messy and refactored versions of a React wallet component:
+- **MessyReact.tsx**: Original problematic code, with comments
+- **RefactoredReact.tsx**: Clean, optimized version with improved performance, type safety, and code structure
