@@ -1,4 +1,7 @@
-import React from 'react';
+import React, { useMemo } from 'react';
+import { useWalletBalances, usePrices } from './hooks';
+import { WalletRow } from './components';
+import { classes } from './styles';
 
 interface WalletBalance {
   currency: string;
@@ -6,24 +9,22 @@ interface WalletBalance {
   blockchain: string;
 }
 
-interface FormattedWalletBalance extends WalletBalance {
-  formatted: string;
+interface Props {
+  children?: React.ReactNode;
 }
 
-interface Props extends BoxProps {}
-
-const WalletPage: React.FC<Props> = (props: Props) => {
+export const WalletPage: React.FC<Props> = (props: Props) => {
   const { children, ...rest } = props;
   const balances = useWalletBalances();
   const prices = usePrices();
 
   const getPriority = (blockchain: string): number => {
     const priorities: Record<string, number> = {
-      Osmosis: 100,
-      Ethereum: 50,
-      Arbitrum: 30,
-      Zilliqa: 20,
-      Neo: 20,
+      'Osmosis': 100,
+      'Ethereum': 50,
+      'Arbitrum': 30,
+      'Zilliqa': 20,
+      'Neo': 20,
     };
     return priorities[blockchain] ?? -99;
   };
@@ -42,21 +43,17 @@ const WalletPage: React.FC<Props> = (props: Props) => {
   }, [balances]);
 
   const rows = useMemo(() => {
-    return sortedBalances.map((balance: WalletBalance) => {
-      const formattedBalance: FormattedWalletBalance = {
-        ...balance,
-        formatted: balance.amount.toFixed(),
-      };
-      
-      const usdValue = prices[balance.currency] * balance.amount;
+    return sortedBalances.map((balance: WalletBalance, index: number) => {
+      const formatted = balance.amount.toFixed();
+      const usdValue = (prices[balance.currency] ?? 0) * balance.amount;
       
       return (
         <WalletRow
           className={classes.row}
-          key={balance.currency}
-          amount={formattedBalance.amount}
+          key={`${balance.currency}-${balance.blockchain}`}
+          amount={balance.amount}
           usdValue={usdValue}
-          formattedAmount={formattedBalance.formatted}
+          formattedAmount={formatted}
         />
       );
     });
